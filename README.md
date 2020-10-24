@@ -9,3 +9,10 @@ Para este proyecto vamos a utilizar la version 21 de android. Vamos a aprender a
 
 Vamos a deshabilitar los plugins agregados porque no me acostumbrE a los iconos y al thema.
 
+
+-Para esta aplicaciOn vamos a agregar nuestra cuenta de gmail en el emulador, ya que vamos a utilizar los servicios de google. 
+	-Una vez que configuramos la cuenta de google en el emulador. Nos vamos al ID
+	 Gradle Scripts/build.gradle(Module:MyUberClone.app)
+	 Nos aseguramos de que tengamos implementada la libreria de androidx.
+			   implementation 'androidx.appcompat:appcompat:1.1.0'
+
