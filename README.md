@@ -16,3 +16,13 @@ Vamos a deshabilitar los plugins agregados porque no me acostumbrE a los iconos 
 	 Nos aseguramos de que tengamos implementada la libreria de androidx.
 			   implementation 'androidx.appcompat:appcompat:1.1.0'
 
+
+PLUGIN NECESARIOS PARA LA APP
+-android drawable importer //este plugin es para agregar imagenes a nuestra app.
+ Como nuestra version de android es mAs nueva tenemos que descargar este archivo zip.
+	SI TIENES PROBLEMAS CON EL PLUGIN ANDROID DRAWABLE IMPORTER
+	DESCARGA ESTE ARCHIVO (SI YA TIENES UNO INSTALADO, DESINSTALALO) Y INSTALA ESTE
+	https://gpskaihu.nz/ADI-hack/ADI-hack-plugin-AS36.zip
+
+ 
+

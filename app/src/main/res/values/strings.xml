@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">MyUberClone</string>
+    <string name="txt_inicio">UberClone es una aplicación similar a Uber</string>
+    <string name="btn_soy_conductor">Soy Conductor</string>
+    <string name="btn_soy_client">Soy Cliente</string>
 </resources>
