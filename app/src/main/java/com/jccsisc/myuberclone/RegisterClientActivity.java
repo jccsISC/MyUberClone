@@ -1,18 +1,26 @@
 package com.jccsisc.myuberclone;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.AlertDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jccsisc.myuberclone.models.Client;
+
+import dmax.dialog.SpotsDialog;
 
 public class RegisterClientActivity extends AppCompatActivity {
 
@@ -20,6 +28,7 @@ public class RegisterClientActivity extends AppCompatActivity {
     SharedPreferences mPref;
     FirebaseAuth mAuth;
     DatabaseReference mDataBase;
+    AlertDialog mDialog;
 
     //Views
     private TextInputEditText tieName, tieEmail, tiePassword, tieConfirm;
@@ -35,9 +44,10 @@ public class RegisterClientActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Registrarse");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        //Instanciamos para hacer uso del dialog de la libreria
+        mDialog = new SpotsDialog.Builder().setContext(RegisterClientActivity.this).setMessage("Espere un momento").build();
+
         mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
-        String selectedUser = mPref.getString("user", "");
-        Toast.makeText(getApplicationContext(), "usted seleccionó: "+ selectedUser, Toast.LENGTH_SHORT).show();
 
         mAuth = FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();//hacemos referencia al nodo principal de nuestra base de datos
@@ -65,15 +75,59 @@ public class RegisterClientActivity extends AppCompatActivity {
         String confirPwd = tieConfirm.getText().toString();
 
         if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirPwd.isEmpty()) {
-            if (password.length()>=6) {
+            if (password.length() >=6) {
                 if (password.equals(confirPwd)) {
-                    Toast.makeText(getApplicationContext(), "Registrado correctamente", Toast.LENGTH_SHORT).show();
+                    mDialog.show();
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                saveUser(name, email);
+                            }else {
+                                Toast.makeText(getApplicationContext(), "Algo salió mal, se pudo registrar", Toast.LENGTH_SHORT).show();
+                            }
+                            mDialog.dismiss();
+                        }
+                    });
                 }else {
                     Toast.makeText(getApplicationContext(), "La contraseña no conincide", Toast.LENGTH_SHORT).show();
                 }
+            }else {
+                Toast.makeText(getApplicationContext(), "La contraseña debe de tener minimo 6 caracteres", Toast.LENGTH_SHORT).show();
             }
         }else {
             Toast.makeText(getApplicationContext(), "Ingrese Todos los campos", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void saveUser(String name, String email) {
+        String selectedUser = mPref.getString("user", "");
+        Client client = new Client();
+        client.setName(name);
+        client.setEmail(email);
+
+        if (selectedUser.equals("driver")) {
+            mDataBase.child("Users").child("Drivers").push().setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+                    }else {
+                        Toast.makeText(getApplicationContext(), "Falló el registro", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }else if (selectedUser.equals("client")) {
+            mDataBase.child("Users").child("Clients").push().setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(getApplicationContext(), "Registro exitoso", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Falló el registro", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
         }
     }
 }
