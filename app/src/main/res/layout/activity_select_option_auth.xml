@@ -34,7 +34,7 @@
             android:textStyle="bold" />
 
             <Button
-                android:id="@+id/btnYaCuenta"
+                android:id="@+id/btnGoToLogin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_55"
                 android:backgroundTint="@color/bg_btn_conductor"
@@ -46,7 +46,7 @@
                 android:layout_marginStart="@dimen/margin_20"/>
 
             <Button
-                android:id="@+id/btnRegistrarClient"
+                android:id="@+id/btnGoToRegister"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_55"
                 android:backgroundTint="@color/color_white"

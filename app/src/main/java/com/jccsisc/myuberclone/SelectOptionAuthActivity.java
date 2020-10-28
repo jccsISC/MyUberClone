@@ -10,7 +10,7 @@ import android.widget.Button;
 
 public class SelectOptionAuthActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private Button btnRegistrar, btnYaTengoCuenta;
+    private Button btnGoToRegister, btnGoToLogin;
     private Toolbar toolbar;
 
     @Override
@@ -24,24 +24,29 @@ public class SelectOptionAuthActivity extends AppCompatActivity implements View.
         getSupportActionBar().setTitle("Selecciona una Opción");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        btnRegistrar = findViewById(R.id.btnRegistrarClient);
-        btnYaTengoCuenta = findViewById(R.id.btnYaCuenta);
+        btnGoToRegister = findViewById(R.id.btnGoToRegister);
+        btnGoToLogin = findViewById(R.id.btnGoToLogin);
 
-        btnRegistrar.setOnClickListener(this);
-        btnYaTengoCuenta.setOnClickListener(this);
+        btnGoToRegister.setOnClickListener(this);
+        btnGoToLogin.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnRegistrarClient:
+            case R.id.btnGoToLogin:
+                goToLogin();
+                break;
+
+            case R.id.btnGoToRegister:
                 Intent intent = new Intent(getApplicationContext(), RegisterClientActivity.class);
                 startActivity(intent);
                 break;
-            case R.id.btnYaCuenta:
-                Intent intent1 = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(intent1);
-                break;
         }
+    }
+
+    private void goToLogin() {
+        Intent intent1 = new Intent(SelectOptionAuthActivity.this, LoginActivity.class);
+        startActivity(intent1);
     }
 }

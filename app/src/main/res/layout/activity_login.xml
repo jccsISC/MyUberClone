@@ -7,6 +7,8 @@
     android:fitsSystemWindows="true"
     tools:context=".LoginActivity">
 
+    <include layout="@layout/action_bar_toolbar"></include>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,7 +34,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_user_login"
+                android:src="@drawable/ic_email"
                 android:paddingEnd="@dimen/padding_5d"/>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -41,10 +43,11 @@
                 tools:background="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/hint_nombre"
-                    android:inputType="textPersonName"
+                    android:hint="@string/hint_email"
+                    android:inputType="textEmailAddress"
                     android:textSize="@dimen/size_18">
 
                 </com.google.android.material.textfield.TextInputEditText>
@@ -62,19 +65,21 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_email"
+                android:src="@drawable/ic_clave"
                 android:paddingEnd="@dimen/padding_5d" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_60"
-                tools:background="@color/colorPrimary">
+                tools:background="@color/colorPrimary"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiePassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_email"
-                    android:inputType="textEmailAddress"
+                    android:inputType="textPassword"
                     android:textSize="@dimen/size_18">
 
                 </com.google.android.material.textfield.TextInputEditText>
@@ -90,6 +95,7 @@
             android:layout_margin="@dimen/margin_10">
 
             <Button
+                android:id="@+id/btnLogin"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_55"
                 android:background="@color/colorPrimary"
