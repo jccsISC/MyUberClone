@@ -8,9 +8,12 @@
     android:fitsSystemWindows="true"
     tools:context=".RegisterClientActivity">
 
+    <include layout="@layout/action_bar_toolbar"></include>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
         android:orientation="vertical">
 
         <LinearLayout
@@ -33,6 +36,7 @@
                 tools:background="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_nombre"
@@ -63,6 +67,7 @@
                 tools:background="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieEmailClient"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_email"
@@ -95,6 +100,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tiePwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_password"
@@ -127,6 +133,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieConfirmPwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_confirm_password"
@@ -146,6 +153,7 @@
             android:layout_margin="@dimen/margin_10">
 
             <Button
+                android:id="@+id/btnRegisterClient"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_55"
                 android:background="@color/colorPrimary"

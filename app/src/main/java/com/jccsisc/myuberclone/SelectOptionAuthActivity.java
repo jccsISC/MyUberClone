@@ -39,10 +39,14 @@ public class SelectOptionAuthActivity extends AppCompatActivity implements View.
                 break;
 
             case R.id.btnGoToRegister:
-                Intent intent = new Intent(getApplicationContext(), RegisterClientActivity.class);
-                startActivity(intent);
+               goToRegister();
                 break;
         }
+    }
+
+    private void goToRegister() {
+        Intent intent = new Intent(getApplicationContext(), RegisterClientActivity.class);
+        startActivity(intent);
     }
 
     private void goToLogin() {

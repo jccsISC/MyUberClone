@@ -2,6 +2,7 @@ package com.jccsisc.myuberclone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -24,6 +25,8 @@ public class LoginActivity extends AppCompatActivity {
     private TextInputEditText tieGmail, tiePassword;
     private Button btnLogin;
 
+    private Toolbar toolbar;
+
     FirebaseAuth mAuth;
     DatabaseReference mDataBase;
 
@@ -37,6 +40,11 @@ public class LoginActivity extends AppCompatActivity {
         tieGmail = findViewById(R.id.tieEmail);
         tiePassword = findViewById(R.id.tiePassword);
         btnLogin = findViewById(R.id.btnLogin);
+
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Login");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mAuth = FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();
