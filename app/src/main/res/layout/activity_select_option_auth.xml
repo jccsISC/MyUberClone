@@ -7,12 +7,13 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:background="@color/colorPrimary"
-    tools:context=".MainActivity">
+    tools:context=".SelectOptionAuthActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:gravity="center">
 
         <ImageView
             android:layout_width="150dp"
@@ -23,46 +24,38 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/txt_inicio"
+            android:text="@string/txt_seleccione_opcion"
             android:textAlignment="center"
             android:textSize="@dimen/size_20"
             android:textColor="@android:color/white"
             android:layout_margin="@dimen/margin_40"
             android:textStyle="bold" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_margin="@dimen/size_20"
-            android:gravity="bottom">
-
             <Button
-                android:id="@+id/btnDriver"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+                android:id="@+id/btnYaCuenta"
+                android:layout_width="match_parent"
                 android:layout_height="@dimen/height_55"
                 android:backgroundTint="@color/bg_btn_conductor"
                 android:background="@drawable/rounded_btn_driver_client"
-                android:text="@string/btn_soy_conductor"
-                android:padding="@dimen/padding_10"
-                android:textSize="@dimen/size_16"
-                android:layout_marginEnd="@dimen/margin_end_5"/>
-
-            <Button
-                android:id="@+id/btnClient"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="@dimen/height_55"
-                android:background="@drawable/my_shape"
-                android:backgroundTint="@color/color_white"
-                android:textColor="@color/color_black"
-                android:text="@string/btn_soy_client"
+                android:text="@string/btn_tengo_cuenta"
                 android:padding="@dimen/padding_10"
                 android:textSize="@dimen/size_18"
-                android:layout_marginStart="@dimen/margin_end_5"/>
+                android:layout_marginEnd="@dimen/margin_20"
+                android:layout_marginStart="@dimen/margin_20"/>
 
-        </LinearLayout>
+            <Button
+                android:id="@+id/btnRegistrarClient"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_55"
+                android:backgroundTint="@color/color_white"
+                android:background="@drawable/rounded_btn_driver_client"
+                android:textColor="@color/color_black"
+                android:text="@string/btn_registrarme"
+                android:padding="@dimen/padding_10"
+                android:textSize="@dimen/size_18"
+                android:layout_marginTop="@dimen/margin_top_10"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:layout_marginStart="@dimen/margin_20"/>
 
     </LinearLayout>
 

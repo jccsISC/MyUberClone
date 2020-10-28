@@ -3,4 +3,12 @@
     <string name="txt_inicio">UberClone es una aplicación similar a Uber</string>
     <string name="btn_soy_conductor">Soy Conductor</string>
     <string name="btn_soy_client">Soy Cliente</string>
+    <string name="txt_seleccione_opcion">Seleccione una Opción</string>
+    <string name="btn_tengo_cuenta">Ya tengo cuenta</string>
+    <string name="btn_registrarme">Registrarme ahora</string>
+    <string name="hint_nombre">Nombre Completo</string>
+    <string name="hint_email">Correo Electronico</string>
+    <string name="hint_password">Contraseña</string>
+    <string name="hint_confirm_password">Confirmar Contraseña</string>
+    <string name="btn_registrar">Registrar</string>
 </resources>

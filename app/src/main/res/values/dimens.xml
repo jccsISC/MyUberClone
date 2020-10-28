@@ -6,4 +6,12 @@
     <dimen name="margin_end_5">5dp</dimen>
     <dimen name="padding_10">10dp</dimen>
     <dimen name="size_16">16sp</dimen>
+    <dimen name="margin_20">20dp</dimen>
+    <dimen name="margin_top_10">10dp</dimen>
+    <dimen name="size_18">18sp</dimen>
+    <dimen name="height_70">70dp</dimen>
+    <dimen name="margin_10">10dp</dimen>
+    <dimen name="padding_5d">5dp</dimen>
+    <dimen name="height_60">60dp</dimen>
+    <dimen name="height_55">55dp</dimen>
 </resources>
