@@ -1,6 +1,7 @@
 package com.jccsisc.myuberclone;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,11 +11,18 @@ import android.widget.Button;
 public class SelectOptionAuthActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button btnRegistrar, btnYaTengoCuenta;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_option_auth);
+
+        //paa que el toolbar funcione tenemos que irnos al manifest y ponerle una propiedad parentActivityName a la actividad
+        toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Selecciona una Opción");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         btnRegistrar = findViewById(R.id.btnRegistrarClient);
         btnYaTengoCuenta = findViewById(R.id.btnYaCuenta);
