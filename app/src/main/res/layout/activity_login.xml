@@ -100,7 +100,7 @@
                 android:layout_height="@dimen/height_55"
                 android:background="@color/colorPrimary"
                 android:backgroundTint="@color/colorPrimary"
-                android:text="@string/btn_registrar"
+                android:text="@string/btn_iniciar"
                 android:textSize="@dimen/size_18"/>
         </LinearLayout>
 
