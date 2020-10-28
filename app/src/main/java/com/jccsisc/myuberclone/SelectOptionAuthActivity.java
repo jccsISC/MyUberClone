@@ -17,9 +17,10 @@ public class SelectOptionAuthActivity extends AppCompatActivity implements View.
         setContentView(R.layout.activity_select_option_auth);
 
         btnRegistrar = findViewById(R.id.btnRegistrarClient);
+        btnYaTengoCuenta = findViewById(R.id.btnYaCuenta);
 
         btnRegistrar.setOnClickListener(this);
-        
+        btnYaTengoCuenta.setOnClickListener(this);
     }
 
     @Override
@@ -28,6 +29,10 @@ public class SelectOptionAuthActivity extends AppCompatActivity implements View.
             case R.id.btnRegistrarClient:
                 Intent intent = new Intent(getApplicationContext(), RegisterClientActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.btnYaCuenta:
+                Intent intent1 = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent1);
                 break;
         }
     }

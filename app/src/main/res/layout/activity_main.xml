@@ -17,6 +17,7 @@
         <ImageView
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:layout_marginTop="@dimen/margin_70"
             android:src="@drawable/ic_cars_inicio"
             android:layout_gravity="center"/>
 
@@ -38,7 +39,7 @@
             android:gravity="bottom">
 
             <Button
-                android:id="@+id/btnDriver"
+                android:id="@+id/btnAmDriver"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/height_55"
@@ -50,7 +51,7 @@
                 android:layout_marginEnd="@dimen/margin_end_5"/>
 
             <Button
-                android:id="@+id/btnClient"
+                android:id="@+id/btnAmClient"
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/height_55"

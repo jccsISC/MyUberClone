@@ -16,8 +16,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnDriver = findViewById(R.id.btnDriver);
-        btnClient = findViewById(R.id.btnClient);
+        btnDriver = findViewById(R.id.btnAmDriver);
+        btnClient = findViewById(R.id.btnAmClient);
 
         btnDriver.setOnClickListener(this);
         btnClient.setOnClickListener(this);
@@ -27,10 +27,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnClient:
-                Intent intent = new Intent(getApplicationContext(), SelectOptionAuthActivity.class);
-                startActivity(intent);
+            case R.id.btnAmClient:
+                goToSelectOption();
             break;
+            case R.id.btnAmDriver:
+                goToSelectOption();
+                break;
         }
+    }
+
+    private void goToSelectOption() {
+        Intent intent = new Intent(getApplicationContext(), SelectOptionAuthActivity.class);
+        startActivity(intent);
     }
 }
