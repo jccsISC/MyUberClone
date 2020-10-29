@@ -2,7 +2,6 @@ package com.jccsisc.myuberclone;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import android.app.AlertDialog;
 import android.content.SharedPreferences;
@@ -16,19 +15,21 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.jccsisc.myuberclone.includes.MyToolbar;
 import com.jccsisc.myuberclone.models.Client;
+import com.jccsisc.myuberclone.providers.AuthProvider;
+import com.jccsisc.myuberclone.providers.ClientProvider;
 
 import dmax.dialog.SpotsDialog;
 
 public class RegisterClientActivity extends AppCompatActivity {
 
     SharedPreferences mPref;
-    FirebaseAuth mAuth;
-    DatabaseReference mDataBase;
     AlertDialog mDialog;
+
+    //objetos para hacer uso de client y driver
+    AuthProvider mAuthProvider; //se encarga de la autenticacion
+    ClientProvider mClientProvider; //se encarga de ingresar a los usuarios en nuestro nodo Clients
 
     //Views
     private TextInputEditText tieName, tieEmail, tiePassword, tieConfirm;
@@ -46,8 +47,8 @@ public class RegisterClientActivity extends AppCompatActivity {
 
         mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
 
-        mAuth = FirebaseAuth.getInstance();
-        mDataBase = FirebaseDatabase.getInstance().getReference();//hacemos referencia al nodo principal de nuestra base de datos
+        mAuthProvider = new AuthProvider();
+        mClientProvider = new ClientProvider();
 
         tieName = findViewById(R.id.tieName);
         tieEmail = findViewById(R.id.tieEmailClient);
@@ -59,13 +60,13 @@ public class RegisterClientActivity extends AppCompatActivity {
         btnRegisterClient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerUser();
+                clickRegister();
             }
         });
 
     }
 
-    private void registerUser() {
+    private void clickRegister() {
         String name = tieName.getText().toString();
         String email = tieEmail.getText().toString();
         String password = tiePassword.getText().toString();
@@ -74,19 +75,7 @@ public class RegisterClientActivity extends AppCompatActivity {
         if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty() && !confirPwd.isEmpty()) {
             if (password.length() >=6) {
                 if (password.equals(confirPwd)) {
-                    mDialog.show();
-                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                        @Override
-                        public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
-                                String id = mAuth.getCurrentUser().getUid();//obtenemos el identificador del usuario que se acaba de logear
-                                saveUser(id, name, email);
-                            }else {
-                                Toast.makeText(getApplicationContext(), "Algo salió mal, se pudo registrar", Toast.LENGTH_SHORT).show();
-                            }
-                            mDialog.dismiss();
-                        }
-                    });
+                    register(name, email, password);
                 }else {
                     Toast.makeText(getApplicationContext(), "La contraseña no conincide", Toast.LENGTH_SHORT).show();
                 }
@@ -98,13 +87,49 @@ public class RegisterClientActivity extends AppCompatActivity {
         }
     }
 
-    private void saveUser(String id, String name, String email) {
-        String selectedUser = mPref.getString("user", "");
+    private void register(String name, String email, String password) {
+        mDialog.show();
+        //con este metodo creamos el usuario en authentication.
+        mAuthProvider.register(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+
+                    String id = FirebaseAuth.getInstance().getCurrentUser().getUid();//obtenemos el identificador del usuario que se acaba de logear para asignarlo a la db
+
+                    Client client = new Client(id, name, email); //creamos un objeto de tipo cliente con esos valores
+                    create(client); //le mandamos el obj de tipo cliente al metodo que lo registrará en la db
+                }else {
+                    Toast.makeText(getApplicationContext(), "Algo salió mal, se pudo registrar", Toast.LENGTH_SHORT).show();
+                }
+                mDialog.dismiss();
+            }
+        });
+    }
+
+    private void create(Client client) {
+        mClientProvider.create(client).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "se creó correctamente", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(getApplicationContext(), "No se pudo crear el usuario", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    //guardar el usuario en la DB
+   /* private void saveUser(String id, String name, String email) {
+        String selectedUser = mPref.getString("user", ""); //obtenemos del prefer el valor que seleccionO
+        //creamos un objeto de tipo cliente
         Client client = new Client();
         client.setName(name);
         client.setEmail(email);
 
         if (selectedUser.equals("driver")) {
+            //lo guardamos en la dB
             mDataBase.child("Users").child("Drivers").child(id).setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
@@ -127,5 +152,5 @@ public class RegisterClientActivity extends AppCompatActivity {
                 }
             });
         }
-    }
+    }*/
 }
