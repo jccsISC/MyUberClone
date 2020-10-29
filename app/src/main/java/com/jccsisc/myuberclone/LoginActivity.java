@@ -17,6 +17,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jccsisc.myuberclone.includes.MyToolbar;
 
 import dmax.dialog.SpotsDialog;
 
@@ -24,8 +25,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private TextInputEditText tieGmail, tiePassword;
     private Button btnLogin;
-
-    private Toolbar toolbar;
 
     FirebaseAuth mAuth;
     DatabaseReference mDataBase;
@@ -41,10 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         tiePassword = findViewById(R.id.tiePassword);
         btnLogin = findViewById(R.id.btnLogin);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Login");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        MyToolbar.showToolbar(LoginActivity.this, "Login", true);
 
         mAuth = FirebaseAuth.getInstance();
         mDataBase = FirebaseDatabase.getInstance().getReference();

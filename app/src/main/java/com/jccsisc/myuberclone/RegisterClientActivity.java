@@ -18,13 +18,13 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.jccsisc.myuberclone.includes.MyToolbar;
 import com.jccsisc.myuberclone.models.Client;
 
 import dmax.dialog.SpotsDialog;
 
 public class RegisterClientActivity extends AppCompatActivity {
 
-    private Toolbar toolbar;
     SharedPreferences mPref;
     FirebaseAuth mAuth;
     DatabaseReference mDataBase;
@@ -39,10 +39,7 @@ public class RegisterClientActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_client);
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Registrarse");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        MyToolbar.showToolbar(RegisterClientActivity.this, "Regstrate", true);
 
         //Instanciamos para hacer uso del dialog de la libreria
         mDialog = new SpotsDialog.Builder().setContext(RegisterClientActivity.this).setMessage("Espere un momento").build();
