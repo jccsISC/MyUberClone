@@ -82,7 +82,8 @@ public class RegisterClientActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                saveUser(name, email);
+                                String id = mAuth.getCurrentUser().getUid();//obtenemos el identificador del usuario que se acaba de logear
+                                saveUser(id, name, email);
                             }else {
                                 Toast.makeText(getApplicationContext(), "Algo salió mal, se pudo registrar", Toast.LENGTH_SHORT).show();
                             }
@@ -100,14 +101,14 @@ public class RegisterClientActivity extends AppCompatActivity {
         }
     }
 
-    private void saveUser(String name, String email) {
+    private void saveUser(String id, String name, String email) {
         String selectedUser = mPref.getString("user", "");
         Client client = new Client();
         client.setName(name);
         client.setEmail(email);
 
         if (selectedUser.equals("driver")) {
-            mDataBase.child("Users").child("Drivers").push().setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {
+            mDataBase.child("Users").child("Drivers").child(id).setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
@@ -118,7 +119,7 @@ public class RegisterClientActivity extends AppCompatActivity {
                 }
             });
         }else if (selectedUser.equals("client")) {
-            mDataBase.child("Users").child("Clients").push().setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {
+            mDataBase.child("Users").child("Clients").child(id).setValue(client).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
