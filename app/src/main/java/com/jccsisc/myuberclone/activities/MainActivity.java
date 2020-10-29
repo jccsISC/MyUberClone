@@ -8,7 +8,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.myuberclone.R;
+import com.jccsisc.myuberclone.activities.client.MapClientActivity;
+import com.jccsisc.myuberclone.activities.driver.MapDriveActivity;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
@@ -52,5 +55,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void goToSelectOption() {
         Intent intent = new Intent(getApplicationContext(), SelectOptionAuthActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            String user = mPref.getString("user", "");
+            if (user.equals("driver")) {
+                Intent intent1 = new Intent(getApplicationContext(), MapDriveActivity.class);
+                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //Con esto ya no podrá regresar al activity anterior
+                startActivity(intent1);
+            } else if (user.equals("client")) {
+                Intent intent = new Intent(getApplicationContext(), MapClientActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //Con esto ya no podrá regresar al activity anterior
+                startActivity(intent);
+            }
+        }
     }
 }

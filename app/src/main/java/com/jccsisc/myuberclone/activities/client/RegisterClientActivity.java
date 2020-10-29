@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.jccsisc.myuberclone.R;
+import com.jccsisc.myuberclone.activities.driver.MapDriveActivity;
 import com.jccsisc.myuberclone.includes.MyToolbar;
 import com.jccsisc.myuberclone.models.Client;
 import com.jccsisc.myuberclone.providers.AuthProvider;
@@ -111,6 +113,9 @@ public class RegisterClientActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getApplicationContext(), "se creó correctamente", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getApplicationContext(), MapClientActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); //Con esto ya no podrá regresar al activity anterior
+                    startActivity(intent);
                 }else {
                     Toast.makeText(getApplicationContext(), "No se pudo crear el usuario", Toast.LENGTH_SHORT).show();
                 }

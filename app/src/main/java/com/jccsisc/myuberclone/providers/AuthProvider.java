@@ -21,4 +21,9 @@ public class AuthProvider {
     public Task<AuthResult> login(String email, String password) {
         return mAuth.signInWithEmailAndPassword(email, password);
     }
+
+    //cerrar sesion
+    public void logout() {
+        mAuth.signOut();
+    }
 }
