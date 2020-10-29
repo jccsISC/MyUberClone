@@ -1,4 +1,4 @@
-package com.jccsisc.myuberclone;
+package com.jccsisc.myuberclone.activities.client;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.jccsisc.myuberclone.R;
 import com.jccsisc.myuberclone.includes.MyToolbar;
 import com.jccsisc.myuberclone.models.Client;
 import com.jccsisc.myuberclone.providers.AuthProvider;
@@ -24,7 +25,6 @@ import dmax.dialog.SpotsDialog;
 
 public class RegisterClientActivity extends AppCompatActivity {
 
-    SharedPreferences mPref;
     AlertDialog mDialog;
 
     //objetos para hacer uso de client y driver
@@ -44,8 +44,6 @@ public class RegisterClientActivity extends AppCompatActivity {
 
         //Instanciamos para hacer uso del dialog de la libreria
         mDialog = new SpotsDialog.Builder().setContext(RegisterClientActivity.this).setMessage("Espere un momento").build();
-
-        mPref = getApplicationContext().getSharedPreferences("typeUser", MODE_PRIVATE);
 
         mAuthProvider = new AuthProvider();
         mClientProvider = new ClientProvider();

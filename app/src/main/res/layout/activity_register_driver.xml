@@ -6,9 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activities.client.RegisterClientActivity">
+    tools:context=".activities.driver.RegisterDriverActivity">
 
     <include layout="@layout/action_bar_toolbar"></include>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -67,7 +68,7 @@
                 tools:background="@color/colorPrimary">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tieEmailClient"
+                    android:id="@+id/tieEmailDriver"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/hint_email"
@@ -147,13 +148,77 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:layout_height="@dimen/height_55"
+            tools:background="@android:color/holo_blue_light"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="@dimen/margin_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_coche_driver"
+                android:paddingEnd="@dimen/padding_5d" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_60"
+                tools:background="@color/colorPrimary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieVehicleBrand"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_marca"
+                    android:inputType="text"
+                    android:textSize="@dimen/size_18">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_55"
+            tools:background="@android:color/holo_blue_light"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_margin="@dimen/margin_10">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_matricula"
+                android:paddingEnd="@dimen/padding_5d" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_60"
+                tools:background="@color/colorPrimary">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/tieVehiclePlate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/hint_placa"
+                    android:inputType="text"
+                    android:textSize="@dimen/size_18">
+
+                </com.google.android.material.textfield.TextInputEditText>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:gravity="bottom"
             android:layout_margin="@dimen/margin_10">
 
             <Button
-                android:id="@+id/btnRegisterClient"
+                android:id="@+id/btnRegisterDriver"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_55"
                 android:background="@color/colorPrimary"

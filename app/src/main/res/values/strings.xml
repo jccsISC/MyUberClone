@@ -12,4 +12,6 @@
     <string name="hint_confirm_password">Confirmar Contraseña</string>
     <string name="btn_registrar">Registrar</string>
     <string name="btn_iniciar">Iniciar sesion</string>
+    <string name="hint_marca">Marca del Vehículo</string>
+    <string name="hint_placa">Matricula del Vehículo</string>
 </resources>
