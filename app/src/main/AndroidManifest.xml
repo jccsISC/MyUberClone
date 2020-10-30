@@ -11,7 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyUberClone">
-        <activity android:name=".activities.driver.MapDriveActivity"></activity>
+        <activity android:name=".activities.driver.MapDriveActivity" ></activity>
         <activity android:name=".activities.client.MapClientActivity" />
         <activity
             android:name=".activities.driver.RegisterDriverActivity"
@@ -32,6 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!--agregamos el nombre tal cual lo creamos y ponemos nuestro api key-->
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/google_api_key"/>
     </application>
 
 </manifest>
