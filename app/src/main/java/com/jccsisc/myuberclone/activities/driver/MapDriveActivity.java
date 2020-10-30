@@ -1,19 +1,23 @@
 package com.jccsisc.myuberclone.activities.driver;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.provider.Settings;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -40,6 +44,7 @@ public class MapDriveActivity extends AppCompatActivity implements OnMapReadyCal
     private SupportMapFragment mMapFragment;
 
     private final static int LOCATION_REQUEST_CODE = 1; //la utilizamos como bandera para saber si deberia de pedir los permisos de ubicacion
+    private final static int SETTINGS_REQUEST_CODE = 2;
 
     AuthProvider mAuthProvider;
 
@@ -51,15 +56,15 @@ public class MapDriveActivity extends AppCompatActivity implements OnMapReadyCal
         @Override
         public void onLocationResult(LocationResult locationResult) {
             //recorremos la propiedad de tipo location
-            for (Location location: locationResult.getLocations()) {
+            for (Location location : locationResult.getLocations()) {
 
                 if (getApplicationContext() != null) {
                     //obtenemos la localizacion del usuario en tiempo real
                     mMap.moveCamera(CameraUpdateFactory.newCameraPosition(
                             new CameraPosition.Builder()
-                            .target(new LatLng(location.getLatitude(), location.getLongitude()))
-                            .zoom(17f)
-                            .build()
+                                    .target(new LatLng(location.getLatitude(), location.getLongitude()))
+                                    .zoom(17f)
+                                    .build()
                     ));
                 }
             }
@@ -93,12 +98,59 @@ public class MapDriveActivity extends AppCompatActivity implements OnMapReadyCal
             //en esta parte preguntamos si el usuario concedio los permisos
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
+                    if (gpsActived()) {
+                        mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
+                    }else {
+                        showAlertDialogShowGPS();
+                    }
+                } else {
+                    checkLocationPermissions();
                 }
+            } else {
+                checkLocationPermissions();
             }
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == SETTINGS_REQUEST_CODE && gpsActived()) {
+            //si si esta activado solo iniciamos nuestro escuchador
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                return;
+            }
+            mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
+        }else {
+            showAlertDialogShowGPS();
+        }
+    }
+
+    //pra que habra las configuraciones para activar su gps
+    private void showAlertDialogShowGPS() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Por favor activa tu ubicación para continuar")
+                .setPositiveButton("Configuraciones", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        startActivityForResult(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS), SETTINGS_REQUEST_CODE);
+                    }
+                }).create().show();
+    }
+
+    //verificar si tiene activado el GPS
+    private boolean gpsActived() {
+        boolean isActive = false;
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        //si tiene el gps activado
+        if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            isActive = true;
+        }
+
+        return isActive;
+    }
 
     //metodo para inicializar a nuestro escuchador
     private void startLocation() {
@@ -106,12 +158,21 @@ public class MapDriveActivity extends AppCompatActivity implements OnMapReadyCal
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //volvlemos a preguntar si los permisos ya estan concedidos
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
+                if (gpsActived()) {
+                    mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
+                }else {
+                    showAlertDialogShowGPS();
+                }
             }else {
                 checkLocationPermissions();
             }
         }else {
-            mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
+            if (gpsActived()) {
+                mFusedLocation.requestLocationUpdates(mLocationRequest, mLocationCallBack, Looper.myLooper());
+            }else {
+                showAlertDialogShowGPS();
+            }
+
         }
     }
 
