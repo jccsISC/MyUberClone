@@ -26,6 +26,9 @@ PLUGIN NECESARIOS PARA LA APP [----------------------------------------------]
 
 -implementation 'com.github.d-max:spots-dialog:1.1@aar' //para poder usar dialog mientras esta cargando nuestra aplicaciOn.
 
+-  implementation 'com.google.android.gms:play-services-maps:16.1.0' //para utilizar los servicios de google el mapa para ser mas especifico.
+
+-implementation 'com.google.android.gms:play-services-location:16.0.0' //para utilizar el gps y asi ver la ubicacion actual del usuario.
 
  
 
